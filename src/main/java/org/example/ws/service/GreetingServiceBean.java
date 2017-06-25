@@ -1,10 +1,5 @@
 package org.example.ws.service;
 
-import java.util.Collection;
-
-import javax.persistence.EntityExistsException;
-import javax.persistence.NoResultException;
-
 import org.example.ws.model.Greeting;
 import org.example.ws.repository.GreetingRepository;
 import org.slf4j.Logger;
@@ -18,6 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
+import java.util.Collection;
+
 /**
  * The GreetingServiceBean encapsulates all business behaviors operating on the
  * Greeting entity model object.
@@ -25,9 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Matt Warman
  */
 @Service
-@Transactional(
-        propagation = Propagation.SUPPORTS,
-        readOnly = true)
+@Transactional( propagation = Propagation.SUPPORTS,  readOnly = true)
 public class GreetingServiceBean implements GreetingService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -39,7 +36,7 @@ public class GreetingServiceBean implements GreetingService {
     private CounterService counterService;
 
     /**
-     * The Spring Data repository for Greeting entities.
+     * The Spring Data repository for Greeting entities is injected here.
      */
     @Autowired
     private GreetingRepository greetingRepository;
@@ -57,9 +54,7 @@ public class GreetingServiceBean implements GreetingService {
     }
 
     @Override
-    @Cacheable(
-            value = "greetings",
-            key = "#id")
+    @Cacheable( value = "greetings",  key = "#id")
     public Greeting findOne(Long id) {
         logger.info("> findOne id:{}", id);
 
@@ -72,26 +67,20 @@ public class GreetingServiceBean implements GreetingService {
     }
 
     @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    @CachePut(
-            value = "greetings",
-            key = "#result.id")
+    @Transactional( propagation = Propagation.REQUIRED,  readOnly = false)
+    @CachePut     ( value = "greetings",  key = "#result.id")
     public Greeting create(Greeting greeting) {
         logger.info("> create");
 
         counterService.increment("method.invoked.greetingServiceBean.create");
 
-        // Ensure the entity object to be created does NOT exist in the
-        // repository. Prevent the default behavior of save() which will update
+        // Ensure the entity object to be created does NOT exist in the repository.
+        // Prevent the default behavior of save() which will update
         // an existing entity if the entity matching the supplied id exists.
         if (greeting.getId() != null) {
             // Cannot create Greeting with specified ID value
-            logger.error(
-                    "Attempted to create a Greeting, but id attribute was not null.");
-            throw new EntityExistsException(
-                    "The id attribute must be null to persist a new entity.");
+            logger.error( "Attempted to create a Greeting, but id attribute was not null.");
+            throw new EntityExistsException(  "The id attribute must be null to persist a new entity.");
         }
 
         Greeting savedGreeting = greetingRepository.save(greeting);
@@ -100,13 +89,12 @@ public class GreetingServiceBean implements GreetingService {
         return savedGreeting;
     }
 
+
+
+
     @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    @CachePut(
-            value = "greetings",
-            key = "#greeting.id")
+    @Transactional( propagation = Propagation.REQUIRED, readOnly = false)
+    @CachePut ( value = "greetings",  key = "#greeting.id")
     public Greeting update(Greeting greeting) {
         logger.info("> update id:{}", greeting.getId());
 
@@ -118,8 +106,7 @@ public class GreetingServiceBean implements GreetingService {
         Greeting greetingToUpdate = findOne(greeting.getId());
         if (greetingToUpdate == null) {
             // Cannot update Greeting that hasn't been persisted
-            logger.error(
-                    "Attempted to update a Greeting, but the entity does not exist.");
+            logger.error(  "Attempted to update a Greeting, but the entity does not exist.");
             throw new NoResultException("Requested entity not found.");
         }
 
@@ -130,13 +117,12 @@ public class GreetingServiceBean implements GreetingService {
         return updatedGreeting;
     }
 
+
+
+
     @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    @CacheEvict(
-            value = "greetings",
-            key = "#id")
+    @Transactional(propagation = Propagation.REQUIRED,  readOnly = false)
+    @CacheEvict    (value = "greetings",   key = "#id")
     public void delete(Long id) {
         logger.info("> delete id:{}", id);
 
@@ -148,9 +134,7 @@ public class GreetingServiceBean implements GreetingService {
     }
 
     @Override
-    @CacheEvict(
-            value = "greetings",
-            allEntries = true)
+    @CacheEvict(  value = "greetings",  allEntries = true)
     public void evictCache() {
         logger.info("> evictCache");
         logger.info("< evictCache");

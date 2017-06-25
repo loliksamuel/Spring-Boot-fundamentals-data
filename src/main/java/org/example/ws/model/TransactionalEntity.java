@@ -1,22 +1,20 @@
 package org.example.ws.model;
 
-import java.io.Serializable;
-import java.util.UUID;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-
 import org.example.ws.util.RequestContext;
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.UUID;
+
 /**
  * The parent class for all transactional persistent entities.
- * 
+ * MappedSuperclass annotation instucts the JPA framework to map the attributes of this class
+ * Notes:
+ * a mapped superclass has no separate table defined for it;
+ * mapping information may be overridden in such subclasses by using the @AttributeOverride and @AssociationOverride annotations or corresponding XML elements.
+ * directly to the tables in db that uses it
  * @see ReferenceEntity
  * 
  * @author Matt Warman
@@ -24,14 +22,10 @@ import org.joda.time.DateTime;
 @MappedSuperclass
 public class TransactionalEntity implements Serializable {
 
-    /**
-     * The default serial version UID.
-     */
+    /**  The default serial version UID.  */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * The primary key identifier.
-     */
+    /**  The primary key identifier.  */
     @Id
     @GeneratedValue
     private Long id;
@@ -39,12 +33,15 @@ public class TransactionalEntity implements Serializable {
     /**
      * A secondary unique identifier which may be used as a reference to this
      * entity by external systems.
+     * advantages:
+     * more portable-easier to migrate db engine
+     * more secure  -hacker cannot guess the id's
      */
     @NotNull
     private String referenceId = UUID.randomUUID().toString();
 
     /**
-     * The entity instance version used for optimistic locking.
+     * The entity instance version used for optimistic locking(better performance) on updating a row.
      */
     @Version
     private Integer version;
@@ -56,7 +53,7 @@ public class TransactionalEntity implements Serializable {
     private String createdBy;
 
     /**
-     * The timestamp when this entity instance was created.
+     * The timestamp when this entity instance was created. this type is from package org.joda.time
      */
     @NotNull
     private DateTime createdAt;

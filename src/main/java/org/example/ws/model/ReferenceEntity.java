@@ -1,16 +1,14 @@
 package org.example.ws.model;
 
-import java.io.Serializable;
-
+import org.joda.time.DateTime;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-
-import org.joda.time.DateTime;
+import java.io.Serializable;
 
 /**
- * The parent class for all reference entities (i.e. reference data as opposed
- * to transactional data).
+ * The parent class for all reference entities
+ * (i.e. reference data as opposed to transactional data).
  * 
  * @see TransactionalEntity
  * 
@@ -24,45 +22,38 @@ public class ReferenceEntity implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * The primary key identifier.
+    /** @Id annotation indicates JPA the this is The primary key identifier.
      */
     @Id
     private Long id;
 
-    /**
-     * The unique code value, sometimes used for external reference.
+    /** The unique code value, sometimes used for external reference.
      */
     @NotNull
     private String code;
 
-    /**
-     * A brief description of the entity.
+    /**  A brief description of the entity.
      */
     @NotNull
     private String label;
 
-    /**
-     * The ordinal value facilitates sorting the entities.
+    /** The ordinal value facilitates sorting the entities.
      */
     @NotNull
     private Integer ordinal;
 
-    /**
-     * The timestamp at which the entity's values may be applied or used by the
+    /** The timestamp at which the entity's values may be applied or used by the
      * system.
      */
     @NotNull
     private DateTime effectiveAt;
 
-    /**
-     * The timestamp at which the entity's values cease to be used by the
+    /** The timestamp at which the entity's values cease to be used by the
      * system. If <code>null</code> the entity is not expired.
      */
     private DateTime expiresAt;
 
-    /**
-     * The timestamp when this entity instance was created.
+    /**  The timestamp when this entity instance was created.
      */
     @NotNull
     private DateTime createdAt;

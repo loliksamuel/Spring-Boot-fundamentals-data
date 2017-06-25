@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * Spring Boot main application class. Serves as both the runtime application
  * entry point and the central Java configuration class.
- *
+ * run this as a java program
+ * or in command line "mvn spring-boot:run"
  * @author Matt Warman
  */
 @SpringBootApplication

@@ -2,7 +2,7 @@
  * Engine: MySQL
  * Version: 0.1.0
  * Description: 
- *   Database changes for version 0.1.0.
+ *   Database version changes from version 0.0.1 to version 0.1.0.
  */
 
 /*

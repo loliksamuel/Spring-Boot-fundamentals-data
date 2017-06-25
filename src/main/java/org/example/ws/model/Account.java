@@ -1,20 +1,16 @@
 package org.example.ws.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-
 /**
- * The Account class is an entity model object. An Account describes the
- * security credentials and authentication flags that permit access to
- * application functionality.
- * 
+ * The Account class is an entity model object.
+ * An Account describes the security credentials and authentication flags
+ * that permit access to application functionality.
+ * this class do not have ID or referenceID cause the TransactionalEntity has it
+ * Entity annotation is for JPA to recognise it as a table in DB
+ *
  * @author Matt Warman
  */
 @Entity
@@ -40,6 +36,10 @@ public class Account extends TransactionalEntity {
     @NotNull
     private boolean locked = false;
 
+    /**many to many relationship between role and account
+    * there are many roles  to  an account (joe can be a USER and and ADMIN)
+    * there are many account with ADMIN role(natia and sam are ADMIN)
+     */
     @ManyToMany(
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
