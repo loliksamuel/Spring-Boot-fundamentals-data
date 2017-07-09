@@ -1,10 +1,5 @@
 package org.example.ws.service;
 
-import java.util.Collection;
-
-import javax.persistence.EntityExistsException;
-import javax.persistence.NoResultException;
-
 import org.example.ws.AbstractTest;
 import org.example.ws.model.Greeting;
 import org.junit.After;
@@ -13,6 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
+import java.util.Collection;
 
 /**
  * Unit test methods for the GreetingService and GreetingServiceBean.
@@ -54,8 +53,7 @@ public class GreetingServiceTest extends AbstractTest {
         Greeting entity = service.findOne(id);
 
         Assert.assertNotNull("failure - expected not null", entity);
-        Assert.assertEquals("failure - expected id attribute match", id,
-                entity.getId());
+        Assert.assertEquals("failure - expected id attribute match", id,   entity.getId());
 
     }
 
@@ -78,15 +76,11 @@ public class GreetingServiceTest extends AbstractTest {
 
         Greeting createdEntity = service.create(entity);
 
-        Assert.assertNotNull("failure - expected not null", createdEntity);
-        Assert.assertNotNull("failure - expected id attribute not null",
-                createdEntity.getId());
-        Assert.assertEquals("failure - expected text attribute match", "test",
-                createdEntity.getText());
-
+        Assert.assertNotNull("failure - expected not null"              , createdEntity);
+        Assert.assertNotNull("failure - expected id attribute not null" , createdEntity.getId());
+        Assert.assertEquals ("failure - expected text attribute match"  , "test",   createdEntity.getText());
         Collection<Greeting> list = service.findAll();
-
-        Assert.assertEquals("failure - expected size", 6, list.size());
+        Assert.assertEquals ("failure - expected size"                  , 6, list.size());
 
     }
 
@@ -106,8 +100,7 @@ public class GreetingServiceTest extends AbstractTest {
         }
 
         Assert.assertNotNull("failure - expected exception", exception);
-        Assert.assertTrue("failure - expected EntityExistsException",
-                exception instanceof EntityExistsException);
+        Assert.assertTrue   ("failure - expected EntityExistsException", exception instanceof EntityExistsException);
 
     }
 
@@ -119,16 +112,13 @@ public class GreetingServiceTest extends AbstractTest {
         Greeting entity = service.findOne(id);
 
         Assert.assertNotNull("failure - expected not null", entity);
-
         String updatedText = entity.getText() + " test";
         entity.setText(updatedText);
         Greeting updatedEntity = service.update(entity);
 
         Assert.assertNotNull("failure - expected not null", updatedEntity);
-        Assert.assertEquals("failure - expected id attribute match", id,
-                updatedEntity.getId());
-        Assert.assertEquals("failure - expected text attribute match",
-                updatedText, updatedEntity.getText());
+        Assert.assertEquals ("failure - expected id attribute match", id, updatedEntity.getId());
+        Assert.assertEquals ("failure - expected text attribute match", updatedText, updatedEntity.getText());
 
     }
 
@@ -148,8 +138,7 @@ public class GreetingServiceTest extends AbstractTest {
         }
 
         Assert.assertNotNull("failure - expected exception", exception);
-        Assert.assertTrue("failure - expected NoResultException",
-                exception instanceof NoResultException);
+        Assert.assertTrue   ("failure - expected NoResultException", exception instanceof NoResultException);
 
     }
 
@@ -159,17 +148,13 @@ public class GreetingServiceTest extends AbstractTest {
         Long id = new Long(1);
 
         Greeting entity = service.findOne(id);
-
         Assert.assertNotNull("failure - expected not null", entity);
 
         service.delete(id);
-
         Collection<Greeting> list = service.findAll();
-
         Assert.assertEquals("failure - expected size", 4, list.size());
 
         Greeting deletedEntity = service.findOne(id);
-
         Assert.assertNull("failure - expected null", deletedEntity);
 
     }

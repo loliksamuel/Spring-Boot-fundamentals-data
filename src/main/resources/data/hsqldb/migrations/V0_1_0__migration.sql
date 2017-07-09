@@ -3,6 +3,7 @@
  * Version: 0.1.0
  * Description: 
  *   Database changes for version 0.1.0.
+ * FLYWAY needs versions to understand how to migrate to new schema
  */
 
 /*

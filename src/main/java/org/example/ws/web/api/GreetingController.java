@@ -60,6 +60,7 @@ public class GreetingController extends BaseController {
      * @param id A Long URL path variable containing the Greeting primary key   identifier.
      * @return A ResponseEntity containing a single Greeting object, if found, and a HTTP status code as described in the method comment.
      */
+    //@HystrixCommand(fallbackMethod = "getGreetings")//here is the circuit breaker pattern
     @RequestMapping( value    = "/api/greetings/{id}",
                      method   = RequestMethod.GET,
                      produces = MediaType.APPLICATION_JSON_VALUE)

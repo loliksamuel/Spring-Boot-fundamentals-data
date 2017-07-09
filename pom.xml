@@ -7,6 +7,16 @@
  <artifactId>spring-data-fundamentals</artifactId>
  <version>1.0.0-SNAPSHOT</version>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
  <parent>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-parent</artifactId>
@@ -41,36 +51,89 @@
     <artifactId>usertype.extended</artifactId>
     <version>5.0.0.GA</version>
   </dependency>
+
+  <!-- flywaydb help to Evolve your Database Schema easily and reliably across all your instances -->
   <dependency>
     <groupId>org.flywaydb</groupId>
     <artifactId>flyway-core</artifactId>
   </dependency>
+
+  <!-- liquibase - source control of your db (for portability)-->
   <dependency>
     <groupId>org.liquibase</groupId>
     <artifactId>liquibase-core</artifactId>
   </dependency>
-  <dependency>
-    <groupId>org.hsqldb</groupId>
-    <artifactId>hsqldb</artifactId>
-    <scope>runtime</scope>
-  </dependency>
+
+ <!--HyperSQL Database is a modern relational database manager that conforms closely to the SQL:2011 standard and JDBC 4 specifications. It supports all core features and RDBMS-->
+ <dependency>
+   <groupId>org.hsqldb</groupId>
+   <artifactId>hsqldb</artifactId>
+   <scope>runtime</scope>
+ </dependency>
+
+  <!-- mysql - relational db for transactions-->
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <scope>runtime</scope>
   </dependency>
-  
+
+   <!-- Dependencies for centralized configuration server for all micro services-->
+     <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-config-server</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-config</artifactId>
+     </dependency>
   <!-- Dependencies for Cache Management Support -->
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-context-support</artifactId>
   </dependency>
+
+  <!-- A high performance caching library for Java 8.-->
   <dependency>
     <groupId>com.github.ben-manes.caffeine</groupId>
     <artifactId>caffeine</artifactId>
   </dependency>
-  
-  <!-- Dependencies for Actuator Production Monitoring and Management -->
+
+     <!-- Dependencies for Eureka - distributed Services discovery for managing services-->
+     <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-eureka-server</artifactId>
+     </dependency>
+
+     <!-- Dependencies for zuul - load balancing over all micro services-->
+     <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-zuul</artifactId>
+     </dependency>
+
+
+     <!-- Dependencies for thymeleaf - templates engine for hrml pages -->
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-thymeleaf</artifactId>
+     </dependency>
+
+
+     <!-- Dependencies for hot swapping, disable cache for template, enable live reload -->
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+         <optional>true</optional>
+     </dependency>
+
+     <!-- Dependencies for Optional, for bootstrap -->
+     <dependency>
+         <groupId>org.webjars</groupId>
+         <artifactId>bootstrap</artifactId>
+         <version>3.3.7</version>
+     </dependency>
+
+     <!-- Dependencies for Actuator Production Monitoring and Management -->
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-actuator</artifactId>
@@ -99,12 +162,4 @@
   </dependency>
  </dependencies>
 
- <build>
-  <plugins>
-   <plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-   </plugin>
-  </plugins>
- </build>
 </project>

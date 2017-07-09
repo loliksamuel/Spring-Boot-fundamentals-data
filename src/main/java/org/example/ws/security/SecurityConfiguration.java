@@ -1,6 +1,5 @@
 package org.example.ws.security;
 
-import org.example.ws.security.AccountAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

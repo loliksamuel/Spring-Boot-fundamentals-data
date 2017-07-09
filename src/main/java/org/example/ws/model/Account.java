@@ -13,6 +13,7 @@ import java.util.Set;
  *
  * @author Matt Warman
  */
+
 @Entity
 public class Account extends TransactionalEntity {
 
@@ -55,6 +56,11 @@ public class Account extends TransactionalEntity {
 
     public Account() {
 
+    }
+
+    public Account(String aName) {
+        username = aName;
+        password = "1234";
     }
 
     public String getUsername() {

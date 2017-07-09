@@ -1,13 +1,5 @@
 package org.example.ws.web.api;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.example.ws.AbstractControllerTest;
 import org.example.ws.model.Greeting;
 import org.example.ws.service.EmailService;
@@ -22,6 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for the GreetingController using Mockito mocks and spies.
@@ -80,8 +78,10 @@ public class GreetingControllerMocksTest extends AbstractControllerTest {
         // Perform the behavior being tested
         String uri = "/api/greetings";
 
-        MvcResult result = mvc.perform(MockMvcRequestBuilders.get(uri)
-                .accept(MediaType.APPLICATION_JSON)).andReturn();
+        MvcResult result = mvc  .perform(MockMvcRequestBuilders
+                                .get(uri)
+                                .accept(MediaType.APPLICATION_JSON))
+                                .andReturn();
 
         // Extract the response status and body
         String content = result.getResponse().getContentAsString();
@@ -92,9 +92,8 @@ public class GreetingControllerMocksTest extends AbstractControllerTest {
 
         // Perform standard JUnit assertions on the response
         Assert.assertEquals("failure - expected HTTP status 200", 200, status);
-        Assert.assertTrue(
-                "failure - expected HTTP response body to have a value",
-                content.trim().length() > 0);
+        Assert.assertTrue  ("failure - expected HTTP response body to have a value",
+                            content.trim().length() > 0);
 
     }
 

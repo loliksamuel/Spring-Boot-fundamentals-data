@@ -45,18 +45,18 @@ public abstract class AbstractControllerTest extends AbstractTest {
      * Prepares the test class for execution of web tests. Builds a MockMvc
      * instance using standalone configuration facilitating the injection of
      * Mockito resources into the controller class.
-     * @param controller A controller object to be tested.
-     */
+     * @param controller A controller object to be tested.*/
     protected void setUp(BaseController controller) {
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
+
+
 
     /**
      * Maps an Object into a JSON String. Uses a Jackson ObjectMapper.
      * @param obj The Object to map.
      * @return A String of JSON.
-     * @throws JsonProcessingException Thrown if an error occurs while mapping.
-     */
+     * @throws JsonProcessingException Thrown if an error occurs while mapping.*/
     protected String mapToJson(Object obj) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JodaModule());

@@ -16,12 +16,18 @@ public class Greeting extends TransactionalEntity {
     private String text;
 
 
+
+
     //this empty constructor is for JPA
     public Greeting()
     {
 
     }
-
+    //this empty constructor is for JPA
+    public Greeting(String aTxt)
+    {
+        text = aTxt;
+    }
     public String getText()
     {
         return text;
@@ -33,4 +39,11 @@ public class Greeting extends TransactionalEntity {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "Greeting{" +
+                "text='" + text + '\''
+               +"user='" + getCreatedBy()+ '\''
+               +'}' ;
+    }
 }
